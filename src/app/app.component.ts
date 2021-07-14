@@ -7,7 +7,7 @@ import {Rfid} from "./utils/model/rfid.model";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {MatDialog, MatDialogState} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef, MatDialogState} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-root',
@@ -16,15 +16,17 @@ import {MatDialog, MatDialogState} from "@angular/material/dialog";
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'rfid-web';
-  rfid: Rfid[] = [];
+  rfid: Rfid[];
   displayedColumns = ['id', 'code', 'date'];
   dataSource: MatTableDataSource<Rfid> = new MatTableDataSource<Rfid>();
-  @ViewChild(MatPaginator) paginator: MatPaginator | any;
-  @ViewChild(MatSort) sort: MatSort | any;
-  globalListenFunc: Function | any;
-  dialogRef: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  globalListenFunc: Function;
+  dialogRef: MatDialogRef<any>;
 
-  constructor(public _dialog: MatDialog, private _renderer: Renderer2, private _rfidService: RfidService) {
+  constructor(public _dialog: MatDialog,
+              private _renderer: Renderer2,
+              private _rfidService: RfidService) {
   }
 
   ngOnInit() {
@@ -35,7 +37,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   getRfidList(): void {
     this._rfidService.getRfidList().subscribe(
       res => {
-        if (this.rfid.length && (res.length > this.rfid.length)) {
+        if (this.rfid && (res.length > this.rfid.length)) {
           if (this.dialogRef?.getState() === MatDialogState.OPEN) {
             this.dialogRef.componentInstance.code = res[res.length - 1].code;
           } else {
@@ -59,7 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   genId(): number {
-    return this.rfid.length > 0 ? Math.max(...this.rfid.map(x => x.id)) + 1 : 1
+    return this.rfid?.length > 0 ? Math.max(...this.rfid?.map(x => x.id)) + 1 : 1
   }
 
   ngAfterViewInit() {
