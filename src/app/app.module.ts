@@ -8,6 +8,11 @@ import {WarningDialogComponent} from './utils/warning-dialog/warning-dialog.comp
 
 import {FlexLayoutModule} from "@angular/flex-layout";
 
+import {firebaseConfig} from "./firebaseconfig";
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+
 import {MatTableModule} from "@angular/material/table";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatButtonModule} from "@angular/material/button";
@@ -15,6 +20,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatIconModule} from "@angular/material/icon";
+
 
 @NgModule({
   declarations: [
@@ -26,6 +32,11 @@ import {MatIconModule} from "@angular/material/icon";
     BrowserAnimationsModule,
     AppRoutingModule,
     FlexLayoutModule,
+
+    // Firebase imports
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
 
     // Material imports
     MatTableModule,

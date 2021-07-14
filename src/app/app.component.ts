@@ -1,12 +1,13 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Renderer2} from '@angular/core';
 
 import {WarningDialogComponent} from "./utils/warning-dialog/warning-dialog.component";
+import {RfidService} from "./utils/service/rfid.service";
 import {Rfid} from "./utils/model/rfid.model";
 
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogState} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-root',
@@ -21,20 +22,39 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
   globalListenFunc: Function | any;
+  dialogRef: any;
 
-  constructor(public _dialog: MatDialog, private _renderer: Renderer2) {
+  constructor(public _dialog: MatDialog, private _renderer: Renderer2, private _rfidService: RfidService) {
   }
 
   ngOnInit() {
+    this.getRfidList();
+    this.readData();
+  }
+
+  getRfidList(): void {
+    this._rfidService.getRfidList().subscribe(
+      res => {
+        if (this.rfid.length && (res.length > this.rfid.length)) {
+          if (this.dialogRef?.getState() === MatDialogState.OPEN) {
+            this.dialogRef.componentInstance.code = res[res.length - 1].code;
+          } else {
+            this.openDialog(res[res.length - 1].code);
+          }
+        }
+        this.rfid = res;
+        this.dataSource.data = this.rfid;
+      }
+    );
+  }
+
+  readData(): void {
     this.globalListenFunc = this._renderer.listen('document', 'keypress', e => {
-      this.rfid?.push({
+      this._rfidService.addRfid({
         id: this.genId(),
         code: e.charCode.toString(16),
         date: new Date()
       });
-      this.openDialog(e.charCode.toString(16));
-
-      this.dataSource.data = this.rfid;
     });
   }
 
@@ -52,12 +72,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   clearData(): void {
-    this.rfid = [];
-    this.dataSource.data = [];
+    this._rfidService.clearData();
   }
 
   openDialog(code: string): void {
-    this._dialog.open(WarningDialogComponent, {
+    this.dialogRef = this._dialog.open(WarningDialogComponent, {
       width: '800px',
       data: code
     });
