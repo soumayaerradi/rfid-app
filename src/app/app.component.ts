@@ -12,7 +12,7 @@ import {MatDialog, MatDialogRef, MatDialogState} from "@angular/material/dialog"
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'rfid-web';
@@ -71,6 +71,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator._intl.itemsPerPageLabel = "";
   }
 
   clearData(): void {
@@ -79,7 +80,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openDialog(code: string): void {
     this.dialogRef = this._dialog.open(WarningDialogComponent, {
-      width: '800px',
+      width: '600px',
       data: code
     });
   }

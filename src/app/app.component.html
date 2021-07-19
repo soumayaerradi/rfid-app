@@ -1,38 +1,42 @@
-<div fxLayout="column" fxLayoutGap="20px" class="container">
-  <h2>Record</h2>
+<div class="container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
+  <h1 class="title">Storico dati rilevati</h1>
 
-  <mat-table #table [dataSource]="dataSource" matSort>
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <p class="text-truncate">{{ row.id }}</p>
-      </mat-cell>
-    </ng-container>
+  <div class="table">
+    <mat-table #table [dataSource]="dataSource" matSort>
+      <!-- Id Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <p class="text-truncate">{{ row.id }}</p>
+        </mat-cell>
+      </ng-container>
 
-    <!-- Code Column -->
-    <ng-container matColumnDef="code">
-      <mat-header-cell *matHeaderCellDef>Codice RFID</mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <p class="text-truncate">{{ row.code }}</p>
-      </mat-cell>
-    </ng-container>
+      <!-- Code Column -->
+      <ng-container matColumnDef="code">
+        <mat-header-cell *matHeaderCellDef>Codice RFID</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <p class="text-truncate">{{ row.code }}</p>
+        </mat-cell>
+      </ng-container>
 
-    <!-- Date Column -->
-    <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef>Data</mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <p class="text-truncate">{{ row.date | date:'dd/MM/YYYY, HH:mm:ss' }}</p>
-      </mat-cell>
-    </ng-container>
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef>Data</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <p class="text-truncate">{{ row.date | date:'dd/MM/YYYY, HH:mm:ss' }}</p>
+        </mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-  </mat-table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
 
-  <button mat-raised-button (click)="clearData()" color="primary">Elimina dati</button>
+  <button mat-raised-button class="delete" (click)="clearData()" color="warn">
+    <span>Elimina dati</span>
+  </button>
 </div>
 
 

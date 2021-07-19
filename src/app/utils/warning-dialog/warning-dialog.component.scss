@@ -1,0 +1,25 @@
+::ng-deep {
+  .mat-dialog-container {
+    padding: 0 0 !important;
+  }
+
+  .mat-icon {
+    height: 80px !important;
+    width: 80px !important;
+  }
+
+}
+
+.icon {
+  color: red;
+  font-size: 80px;
+}
+
+.dismiss {
+  background-color: red;
+  cursor: pointer;
+
+  h3 {
+    color: white;
+  }
+}
