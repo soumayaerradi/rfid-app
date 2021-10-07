@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyD-n1OEdufhIvHl3qPvS9_cEb5P6w-Fk3Q",
-  authDomain: "rfid-web-c9ec2.firebaseapp.com",
-  databaseURL: "https://rfid-web-c9ec2-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "rfid-web-c9ec2",
-  storageBucket: "rfid-web-c9ec2.appspot.com",
-  messagingSenderId: "1050523132308",
-  appId: "1:1050523132308:web:ee5c96f9020662e48caf81"
+  apiKey: "AIzaSyAUQ47SrcEnTlGOb2lnU4x0UrjPuvg1MZk",
+  authDomain: "rfid-web-5f13b.firebaseapp.com",
+  databaseURL: "https://rfid-web-5f13b-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "rfid-web-5f13b",
+  storageBucket: "rfid-web-5f13b.appspot.com",
+  messagingSenderId: "692256248522",
+  appId: "1:692256248522:web:5cb841f78c4769f08f1a33"
 };

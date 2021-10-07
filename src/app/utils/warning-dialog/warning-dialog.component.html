@@ -1,9 +1,10 @@
 <mat-dialog-content>
-  <div fxLayout="column" fxLayoutGap="10px">
+  <div fxLayout="column" fxLayoutGap="30px">
     <div fxLayout="column" fxLayoutAlign="center center">
       <mat-icon class="icon material-icons-round">warning</mat-icon>
       <h1>Attenzione!</h1>
-      <p>Prodotto rilevato - RFID: {{code}}</p>
+      <p>Prodotto rilevato - RFID: </p>
+      <i>{{code}}</i>
     </div>
 
     <div class="dismiss" fxLayout="column" fxLayoutAlign="center center" (click)="close()">

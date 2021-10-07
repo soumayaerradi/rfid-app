@@ -17,6 +17,7 @@ import {MatDialog, MatDialogRef, MatDialogState} from "@angular/material/dialog"
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'rfid-web';
   rfid: Rfid[];
+  newCode = "";
   displayedColumns = ['id', 'code', 'date'];
   dataSource: MatTableDataSource<Rfid> = new MatTableDataSource<Rfid>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -52,11 +53,20 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   readData(): void {
     this.globalListenFunc = this._renderer.listen('document', 'keypress', e => {
-      this._rfidService.addRfid({
-        id: this.genId(),
-        code: e.charCode.toString(16),
-        date: new Date()
-      });
+      if (e.key != 'Enter') {
+        this.newCode = this.newCode + e.key.toString();
+      } else {
+        this.saveData(this.newCode);
+        this.newCode = "";
+      }
+    });
+  }
+
+  saveData(newCode: string): void {
+    this._rfidService.addRfid({
+      id: this.genId(),
+      code: newCode,
+      date: new Date()
     });
   }
 
